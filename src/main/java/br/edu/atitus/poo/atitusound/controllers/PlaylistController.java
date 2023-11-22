@@ -1,0 +1,33 @@
+package br.edu.atitus.poo.atitusound.controllers;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import br.edu.atitus.poo.atitusound.dtos.PlaylistDTO;
+import br.edu.atitus.poo.atitusound.entities.PlaylistEntity;
+import br.edu.atitus.poo.atitusound.services.GenericService;
+import br.edu.atitus.poo.atitusound.services.PlaylistService;
+
+@RestController("/playlists")
+public class PlaylistController extends GenericController<PlaylistEntity, PlaylistDTO>{
+
+	private final PlaylistService service;
+	
+	public PlaylistController(PlaylistService service) {
+		super();
+		this.service = service;
+	}
+	
+	@Override
+	protected GenericService<PlaylistEntity> getService() {
+		return service;
+	}
+
+	@Override
+	protected PlaylistEntity convertDTO2Entity(PlaylistDTO dto) {
+		PlaylistEntity playlist = new PlaylistEntity();
+		playlist.setName(dto.getName());
+		playlist.setPublicshare(dto.getPublic_share());
+		return playlist;
+	}
+
+}
